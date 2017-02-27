@@ -59,6 +59,33 @@ or to install from source, run:
     })
     tax.save()
     tax.delete()
+    
+    # Check if transaction was paid
+    transaction = mc2p.Transaction({
+        "id": "TRANSACTION-ID"
+    })
+    transaction.retrieve()
+    transaction.status == 'D' # Paid
+    
+    # Create subscription
+    subscription = mc2p.Subscription({
+        "currency": "EUR",
+        "plan_id": "PLAN-ID",
+        "note": "Note example"
+    })
+    # or
+    subscription = mc2p.Subscription({
+        "currency": "EUR",
+        "plan": {
+            "name": "Plan",
+            "price": 5,
+            "duration": 1,
+            "unit": "M",
+            "recurring": true
+        },
+        "note": "Note example"
+    })
+    subscription.save() # Use subscription.token to send the user to pay
 
 # Exceptions
     
