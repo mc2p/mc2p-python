@@ -24,7 +24,7 @@ class Paginator(object):
 
 class ObjectItem(object):
     ID_PROPERTY = 'id'
-    VALID_ACTIONS = ['create', 'update', 'save', 'delete']
+    VALID_ACTIONS = ['create', 'retrieve', 'save', 'delete']
 
     def __init__(self, json_dict, resource):
         if json_dict is None:
@@ -41,31 +41,37 @@ class ObjectItem(object):
     def __setattr__(self, key, value):
         if key in ['json_dict', 'resource', '_deleted']:
             super(ObjectItem, self).__setattr__(key, value)
-        self.json_dict[key] = value
+        else:
+            self.json_dict[key] = value
 
     @is_valid_action('create')
-    def create(self):
+    def _create(self):
         obj = self.resource.create(
             self.json_dict
         )
         self.json_dict = obj.json_dict
 
     @id_required_and_not_deleted
-    @is_valid_action('update')
-    def update(self):
-        obj = self.resource.detail(
-            self.json_dict[self.ID_PROPERTY]
-        )
-        self.json_dict = obj.json_dict
-
-    @id_required_and_not_deleted
     @is_valid_action('save')
-    def save(self):
+    def _change(self):
         obj = self.resource.change(
             self.json_dict[self.ID_PROPERTY],
             self.json_dict
         )
         self.json_dict = obj.json_dict
+
+    @is_valid_action('retrieve')
+    def retrieve(self):
+        obj = self.resource.detail(
+            self.json_dict[self.ID_PROPERTY]
+        )
+        self.json_dict = obj.json_dict
+
+    def save(self):
+        if self.json_dict.get(self.ID_PROPERTY, False):
+            self._change()
+        else:
+            self._create()
 
     @id_required_and_not_deleted
     @is_valid_action('delete')
@@ -77,11 +83,11 @@ class ObjectItem(object):
 
 
 class ReadOnlyObjectItem(ObjectItem):
-    VALID_ACTIONS = ['update']
+    VALID_ACTIONS = ['retrieve']
 
 
 class CreateReadOnlyObjectItem(ObjectItem):
-    VALID_ACTIONS = ['create', 'update']
+    VALID_ACTIONS = ['create', 'retrieve']
 
 
 class Resource(object):
