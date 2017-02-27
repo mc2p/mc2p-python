@@ -1,0 +1,7 @@
+# Use wildcards as well
+*~
+*.swp
+*.pyc
+.env/
+.idea/
+.DS_STORE
