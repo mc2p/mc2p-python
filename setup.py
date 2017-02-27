@@ -29,7 +29,7 @@ setup(
     author_email='support@mychoice2pay.com',
     packages=find_packages(),
     install_requires=[
-        'requests>=0.8.8'
+        'requests'
     ],
     zip_safe=False,
     classifiers=[
