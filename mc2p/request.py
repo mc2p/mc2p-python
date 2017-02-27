@@ -1,5 +1,6 @@
 from .errors import InvalidRequestError
 
+import json
 import requests
 
 
@@ -11,10 +12,10 @@ class APIRequest(object):
         self.key = key
         self.secret_key = secret_key
 
-        self.post = self._request('POST')
+        self.post = self._request('POST', 201)
         self.get = self._request('GET')
         self.patch = self._request('PATCH')
-        self.delete = self._request('DELETE')
+        self.delete = self._request('DELETE', 204)
 
     @property
     def headers(self):
@@ -23,7 +24,8 @@ class APIRequest(object):
                 self.AUTHORIZATION_HEADER,
                 self.key,
                 self.secret_key
-            )
+            ),
+            'content-type': 'application/json'
         }
 
     def get_abs_url(self, url):
@@ -37,7 +39,7 @@ class APIRequest(object):
             request = requests.request(
                 method,
                 abs_url if abs_url else self.get_abs_url(rel_url),
-                data=data,
+                data=json.dumps(data),
                 headers=self.headers
             )
 
@@ -48,5 +50,8 @@ class APIRequest(object):
                     resource=resource,
                     resource_id=resource_id
                 )
+
+            if status_code == 204:
+                return {}
             return request.json()
         return func
