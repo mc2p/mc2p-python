@@ -36,7 +36,8 @@ or to install from source, run:
             }
         }]
     })
-    transaction.save() # Use transaction.token to send the user to pay
+    transaction.save()
+    transaction.pay_url # Send user to this url to pay
 
     # Get plans
     plans_paginator = mc2p.plan.list()
@@ -85,7 +86,8 @@ or to install from source, run:
         },
         "note": "Note example"
     })
-    subscription.save() # Use subscription.token to send the user to pay
+    subscription.save()
+    subscription.pay_url # Send user to this url to pay
 
 # Exceptions
     
