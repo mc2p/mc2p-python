@@ -136,7 +136,7 @@ class ResourceMixin(object):
     """
     Basic info of the resource
     """
-    URL = '/resource/'
+    PATH = '/resource/'
     OBJECT_ITEM_CLASS = None
     PAGINATOR_CLASS = None
     api_request = None
@@ -147,7 +147,7 @@ class ResourceMixin(object):
         :return: url to request or change an item
         """
         return '%s%s/' % (
-            self.URL,
+            self.PATH,
             resource_id
         )
 
@@ -160,7 +160,7 @@ class ResourceMixin(object):
         :return: an object item that represent the item returned
         """
         if not resource_id:
-            url = self.URL
+            url = self.PATH
         else:
             url = self.detail_url(resource_id)
 
@@ -175,7 +175,7 @@ class ResourceMixin(object):
         )
 
 
-class ListDetailResourceMixin(ResourceMixin):
+class ReadOnlyResourceMixin(ResourceMixin):
     """
     Allows send requests of list and detail
     """
@@ -191,7 +191,7 @@ class ListDetailResourceMixin(ResourceMixin):
             )
         else:
             json_dict = self.api_request.get(
-                self.URL,
+                self.PATH,
                 resource=self
             )
 
@@ -245,7 +245,6 @@ class DeleteResourceMixin(ResourceMixin):
     def delete(self, resource_id):
         """
         :param resource_id: id to request
-        :return: an object item class with the response of the server
         """
         self._one_item(self.api_request.delete,
                        resource_id=resource_id)
