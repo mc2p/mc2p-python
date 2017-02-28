@@ -1,3 +1,5 @@
+import sys
+
 from .utils import id_required_and_not_deleted
 
 
@@ -6,6 +8,19 @@ class ObjectItemMixin(object):
     json_dict = None
     resource = None
     _deleted = False
+
+    def __unicode__(self):
+        return u"{0} {1}".format(self.__class__.__name__, self.json_dict)
+
+    if sys.version_info > (3, 0):
+        def __str__(self):
+            return self.__unicode__()
+    else:
+        def __str__(self):
+            return unicode(self).encode('utf-8')
+
+    def __repr__(self):
+        return self.__str__()
 
 
 class DeleteObjectItemMixin(ObjectItemMixin):
