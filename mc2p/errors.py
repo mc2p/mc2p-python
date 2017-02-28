@@ -12,7 +12,7 @@ class MC2PError(Exception):
         self.resource_id = resource_id
 
     def __unicode__(self):
-        return u"Message: {0}, Body: {1}".format(self._message, self.json_body)
+        return u"{0} {1}".format(self._message, self.json_body)
 
     if sys.version_info > (3, 0):
         def __str__(self):
@@ -23,10 +23,6 @@ class MC2PError(Exception):
 
 
 class InvalidRequestError(MC2PError):
-    pass
-
-
-class PermissionError(MC2PError):
     pass
 
 
