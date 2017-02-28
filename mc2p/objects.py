@@ -1,71 +1,71 @@
-from .base import RetrieveObjectItem, DeleteSaveRetrieveObjectItem, CreateRetrieveObjectItem
+from .base import ReadOnlyObjectItem, CRUDObjectItem, CRObjectItem
 from .mixin import PayURLMixin
 
 
-class Product(DeleteSaveRetrieveObjectItem):
+class Product(CRUDObjectItem):
     """
     Product object
     """
     pass
 
 
-class Plan(DeleteSaveRetrieveObjectItem):
+class Plan(CRUDObjectItem):
     """
     Plan object
     """
     pass
 
 
-class Tax(DeleteSaveRetrieveObjectItem):
+class Tax(CRUDObjectItem):
     """
     Tax object
     """
     pass
 
 
-class Shipping(DeleteSaveRetrieveObjectItem):
+class Shipping(CRUDObjectItem):
     """
     Shipping object
     """
     pass
 
 
-class Coupon(DeleteSaveRetrieveObjectItem):
+class Coupon(CRUDObjectItem):
     """
     Coupon object
     """
     pass
 
 
-class Transaction(PayURLMixin, CreateRetrieveObjectItem):
+class Transaction(PayURLMixin, CRObjectItem):
     """
     Transaction object
     """
     pass
 
 
-class Subscription(PayURLMixin, CreateRetrieveObjectItem):
+class Subscription(PayURLMixin, CRObjectItem):
     """
     Subscription object
     """
     pass
 
 
-class Sale(RetrieveObjectItem):
+class Sale(ReadOnlyObjectItem):
     """
     Sale object
     """
     pass
 
 
-class Currency(RetrieveObjectItem):
+class Currency(ReadOnlyObjectItem):
     """
     Currency object
     """
     pass
 
 
-class Gateway(RetrieveObjectItem):
+class Gateway(ReadOnlyObjectItem):
     """
     Gateway object
     """
