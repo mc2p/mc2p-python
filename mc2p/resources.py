@@ -1,83 +1,83 @@
-from .base import ListDetailResource, CreateListDetailResource, DeleteChangeCreateListDetailResource
+from .base import ReadOnlyResource, CRResource, CRUDResource
 from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Sale, Currency, Gateway
 
 
-class ProductResource(DeleteChangeCreateListDetailResource):
+class ProductResource(CRUDResource):
     """
     Product resource
     """
-    URL = '/product/'
+    PATH = '/product/'
     OBJECT_ITEM_CLASS = Product
 
 
-class PlanResource(DeleteChangeCreateListDetailResource):
+class PlanResource(CRUDResource):
     """
     Plan resource
     """
-    URL = '/plan/'
+    PATH = '/plan/'
     OBJECT_ITEM_CLASS = Plan
 
 
-class TaxResource(DeleteChangeCreateListDetailResource):
+class TaxResource(CRUDResource):
     """
     Tax resource
     """
-    URL = '/tax/'
+    PATH = '/tax/'
     OBJECT_ITEM_CLASS = Tax
 
 
-class ShippingResource(DeleteChangeCreateListDetailResource):
+class ShippingResource(CRUDResource):
     """
     Shipping resource
     """
-    URL = '/shipping/'
+    PATH = '/shipping/'
     OBJECT_ITEM_CLASS = Shipping
 
 
-class CouponResource(DeleteChangeCreateListDetailResource):
+class CouponResource(CRUDResource):
     """
     Coupon resource
     """
-    URL = '/coupon/'
+    PATH = '/coupon/'
     OBJECT_ITEM_CLASS = Coupon
 
 
-class TransactionResource(CreateListDetailResource):
+class TransactionResource(CRResource):
     """
     Transaction resource
     """
-    URL = '/transaction/'
+    PATH = '/transaction/'
     OBJECT_ITEM_CLASS = Transaction
 
 
-class SubscriptionResource(CreateListDetailResource):
+class SubscriptionResource(CRResource):
     """
     Subscription resource
     """
-    URL = '/subscription/'
+    PATH = '/subscription/'
     OBJECT_ITEM_CLASS = Subscription
 
 
-class SaleResource(ListDetailResource):
+class SaleResource(ReadOnlyResource):
     """
     Sale resource
     """
-    URL = '/sale/'
+    PATH = '/sale/'
     OBJECT_ITEM_CLASS = Sale
 
 
-class CurrencyResource(ListDetailResource):
+class CurrencyResource(ReadOnlyResource):
     """
     Currency resource
     """
-    URL = '/currency/'
+    PATH = '/currency/'
     OBJECT_ITEM_CLASS = Currency
 
 
-class GatewayResource(ListDetailResource):
+class GatewayResource(ReadOnlyResource):
     """
     Gateway resource
     """
-    URL = '/gateway/'
+    PATH = '/gateway/'
     OBJECT_ITEM_CLASS = Gateway
 
