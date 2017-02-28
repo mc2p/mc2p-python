@@ -23,7 +23,7 @@ or to install from source, run:
 
     from mc2p import MC2P
     
-    mc2p = MC2P('KEY', 'SECRET_KEY')
+    mc2p = MC2PClient('KEY', 'SECRET_KEY')
     
     # Create transaction
     transaction = mc2p.Transaction({

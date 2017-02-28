@@ -16,7 +16,7 @@ def class_decorator(cls, resource):
     return init
 
 
-class MC2P(object):
+class MC2PClient(object):
     """
     MC2P - class used to manage the communication with MyChoice2Pay API
     """

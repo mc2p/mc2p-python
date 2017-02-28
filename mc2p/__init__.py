@@ -14,4 +14,4 @@ HTTP_HEADER_ENCODING = 'iso-8859-1'
 ISO_8601 = 'iso-8601'
 
 
-from .mc2p import MC2P
+from .mc2p import MC2PClient
