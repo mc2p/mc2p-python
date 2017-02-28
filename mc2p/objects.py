@@ -1,41 +1,41 @@
-from .base import ObjectItem, ReadOnlyObjectItem, CreateReadOnlyObjectItem
+from .base import RetrieveObjectItemMixin, DeleteSaveRetrieveObjectItem, CreateRetrieveObjectItem
 
 
-class Product(ObjectItem):
+class Product(DeleteSaveRetrieveObjectItem):
     pass
 
 
-class Plan(ObjectItem):
+class Plan(DeleteSaveRetrieveObjectItem):
     pass
 
 
-class Tax(ObjectItem):
+class Tax(DeleteSaveRetrieveObjectItem):
     pass
 
 
-class Shipping(ObjectItem):
+class Shipping(DeleteSaveRetrieveObjectItem):
     pass
 
 
-class Coupon(ObjectItem):
+class Coupon(DeleteSaveRetrieveObjectItem):
     pass
 
 
-class Transaction(CreateReadOnlyObjectItem):
+class Transaction(CreateRetrieveObjectItem):
     pass
 
 
-class Subscription(CreateReadOnlyObjectItem):
+class Subscription(CreateRetrieveObjectItem):
     pass
 
 
-class Sale(ReadOnlyObjectItem):
+class Sale(RetrieveObjectItemMixin):
     pass
 
 
-class Currency(ReadOnlyObjectItem):
+class Currency(RetrieveObjectItemMixin):
     pass
 
 
-class Gateway(ReadOnlyObjectItem):
+class Gateway(RetrieveObjectItemMixin):
     pass

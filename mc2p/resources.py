@@ -1,53 +1,53 @@
-from .base import Resource, ReadOnlyResource, CreateReadOnlyResource
+from .base import ListDetailResource, CreateListDetailResource, DeleteChangeCreateListDetailResource
 from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Sale, Currency, Gateway
 
 
-class ProductResource(Resource):
+class ProductResource(DeleteChangeCreateListDetailResource):
     URL = '/product/'
     OBJECT_ITEM_CLASS = Product
 
 
-class PlanResource(Resource):
+class PlanResource(DeleteChangeCreateListDetailResource):
     URL = '/plan/'
     OBJECT_ITEM_CLASS = Plan
 
 
-class TaxResource(Resource):
+class TaxResource(DeleteChangeCreateListDetailResource):
     URL = '/tax/'
     OBJECT_ITEM_CLASS = Tax
 
 
-class ShippingResource(Resource):
+class ShippingResource(DeleteChangeCreateListDetailResource):
     URL = '/shipping/'
     OBJECT_ITEM_CLASS = Shipping
 
 
-class CouponResource(Resource):
+class CouponResource(DeleteChangeCreateListDetailResource):
     URL = '/coupon/'
     OBJECT_ITEM_CLASS = Coupon
 
 
-class TransactionResource(CreateReadOnlyResource):
+class TransactionResource(CreateListDetailResource):
     URL = '/transaction/'
     OBJECT_ITEM_CLASS = Transaction
 
 
-class SubscriptionResource(CreateReadOnlyResource):
+class SubscriptionResource(CreateListDetailResource):
     URL = '/subscription/'
     OBJECT_ITEM_CLASS = Subscription
 
 
-class SaleResource(ReadOnlyResource):
+class SaleResource(ListDetailResource):
     URL = '/sale/'
     OBJECT_ITEM_CLASS = Sale
 
 
-class CurrencyResource(ReadOnlyResource):
+class CurrencyResource(ListDetailResource):
     URL = '/currency/'
     OBJECT_ITEM_CLASS = Currency
 
 
-class GatewayResource(ReadOnlyResource):
+class GatewayResource(ListDetailResource):
     URL = '/gateway/'
     OBJECT_ITEM_CLASS = Gateway
 
