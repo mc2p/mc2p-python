@@ -117,6 +117,21 @@ class SaveObjectItemMixin(CreateObjectItemMixin):
             self._create()
 
 
+class PayURLMixin(ObjectItemMixin):
+    """
+    Add property to get pay_url based on token
+    """
+    PAY_URL = 'https://www.mychoice2pay.com/pay/%s/'
+
+    @id_required_and_not_deleted
+    @property
+    def pay_url(self):
+        """
+        :return: pay url
+        """
+        return self.PAY_URL % self.json_dict['token']
+
+
 class ResourceMixin(object):
     """
     Basic info of the resource

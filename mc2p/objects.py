@@ -1,4 +1,5 @@
 from .base import RetrieveObjectItem, DeleteSaveRetrieveObjectItem, CreateRetrieveObjectItem
+from .mixin import PayURLMixin
 
 
 class Product(DeleteSaveRetrieveObjectItem):
@@ -36,14 +37,14 @@ class Coupon(DeleteSaveRetrieveObjectItem):
     pass
 
 
-class Transaction(CreateRetrieveObjectItem):
+class Transaction(PayURLMixin, CreateRetrieveObjectItem):
     """
     Transaction object
     """
     pass
 
 
-class Subscription(CreateRetrieveObjectItem):
+class Subscription(PayURLMixin, CreateRetrieveObjectItem):
     """
     Subscription object
     """
