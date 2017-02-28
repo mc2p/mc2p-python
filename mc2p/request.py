@@ -40,14 +40,14 @@ class APIRequest(object):
             'content-type': 'application/json'
         }
 
-    def get_abs_url(self, url):
+    def get_abs_url(self, path):
         """
-        :param url: relative url
+        :param path: relative url
         :return: The absolute url to send the request
         """
         return 'https://%s%s' % (
             self.API_URL,
-            url
+            path
         )
 
     def _request(self, method, status_code=200):
@@ -57,10 +57,10 @@ class APIRequest(object):
         :param status_code: value to check if the request receive a correct response
         :return: a function to make the request
         """
-        def func(rel_url=None, data=None, abs_url=None, resource=None, resource_id=None):
+        def func(path=None, data=None, abs_url=None, resource=None, resource_id=None):
             request = requests.request(
                 method,
-                abs_url if abs_url else self.get_abs_url(rel_url),
+                abs_url if abs_url else self.get_abs_url(path),
                 data=json.dumps(data),
                 headers=self.headers
             )
