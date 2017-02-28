@@ -1,5 +1,5 @@
 from .mixin import ObjectItemMixin, DeleteObjectItemMixin, RetrieveObjectItemMixin, SaveObjectItemMixin, \
-    CreateObjectItemMixin, ResourceMixin, ListDetailResourceMixin, CreateResourceMixin, DeleteResourceMixin, \
+    CreateObjectItemMixin, ResourceMixin, ReadOnlyResourceMixin, CreateResourceMixin, DeleteResourceMixin, \
     ChangeResourceMixin
 
 
@@ -79,28 +79,28 @@ class ObjectItem(ObjectItemMixin):
             self.json_dict[key] = value
 
 
-class RetrieveObjectItem(RetrieveObjectItemMixin, ObjectItem):
+class ReadOnlyObjectItem(RetrieveObjectItemMixin, ObjectItem):
     """
     Object item that allows retrieve an item
     """
     pass
 
 
-class CreateRetrieveObjectItem(CreateObjectItemMixin, ObjectItem):
+class CRObjectItem(CreateObjectItemMixin, ReadOnlyObjectItem):
     """
     Object item that allows retrieve and create an item
     """
     pass
 
 
-class SaveRetrieveObjectItem(SaveObjectItemMixin, RetrieveObjectItem):
+class CRUObjectItem(SaveObjectItemMixin, ReadOnlyObjectItem):
     """
     Object item that allows retrieve, create and save an item
     """
     pass
 
 
-class DeleteSaveRetrieveObjectItem(DeleteObjectItemMixin, SaveRetrieveObjectItem):
+class CRUDObjectItem(DeleteObjectItemMixin, CRUObjectItem):
     """
     Object item that allows retrieve, create, save and delete an item
     """
@@ -122,21 +122,21 @@ class Resource(ResourceMixin):
         self.api_request = api_request
 
 
-class ListDetailResource(ListDetailResourceMixin, Resource):
+class ReadOnlyResource(ReadOnlyResourceMixin, Resource):
     """
     Resource that allows send requests of list and detail
     """
     pass
 
 
-class CreateListDetailResource(CreateResourceMixin, ListDetailResource):
+class CRResource(CreateResourceMixin, ReadOnlyResource):
     """
     Resource that allows send requests of create, list and detail
     """
     pass
 
 
-class DeleteChangeCreateListDetailResource(DeleteResourceMixin, ChangeResourceMixin, CreateListDetailResource):
+class CRUDResource(DeleteResourceMixin, ChangeResourceMixin, CRResource):
     """
     Resource that allows send requests of delete, change, create, list and detail
     """
