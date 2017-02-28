@@ -5,7 +5,7 @@ from .mixin import ObjectItemMixin, DeleteObjectItemMixin, RetrieveObjectItemMix
 
 class Paginator(object):
     """
-    Paginator class used on list requests
+    Paginator - class used on list requests
     """
     def __init__(self, json_dict, object_item_class, resource):
         """
@@ -41,7 +41,7 @@ class Paginator(object):
 
 class ObjectItem(ObjectItemMixin):
     """
-    Object item class used to wrap the data from API that represent an item
+    Object item - class used to wrap the data from API that represent an item
     """
     def __init__(self, json_dict, resource):
         """
@@ -109,7 +109,7 @@ class DeleteSaveRetrieveObjectItem(DeleteObjectItemMixin, SaveRetrieveObjectItem
 
 class Resource(ResourceMixin):
     """
-    Resource class used to manage the requests to the API related with a resource
+    Resource - class used to manage the requests to the API related with a resource
     ex: product
     """
     PAGINATOR_CLASS = Paginator

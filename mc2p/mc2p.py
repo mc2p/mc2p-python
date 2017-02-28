@@ -5,13 +5,27 @@ from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscrip
 
 
 def class_decorator(cls, resource):
+    """
+    Allows initializes an object without the resource variable
+    :param cls: Object item class
+    :param resource: Resource used to initializes the object
+    :return: Function that only receive the json_dict value
+    """
     def init(json_dict):
         return cls(json_dict, resource)
     return init
 
 
 class MC2P(object):
+    """
+    MC2P - class used to manage the communication with MyChoice2Pay API
+    """
     def __init__(self, key, secret_key):
+        """
+        Initializes the mc2p library
+        :param key: key to connect with API
+        :param secret_key: secret_key to connect with API
+        """
         self.api_request = APIRequest(key, secret_key)
 
         self.product = ProductResource(self.api_request)

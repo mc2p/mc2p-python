@@ -3,7 +3,7 @@ import sys
 
 class MC2PError(Exception):
     """
-    MC2P Error class used to manage the exceptions related with mc2p library
+    MC2P Error - class used to manage the exceptions related with mc2p library
     """
     def __init__(self, message=None, json_body=None, resource=None, resource_id=None):
         """
