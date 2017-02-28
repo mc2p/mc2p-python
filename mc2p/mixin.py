@@ -123,8 +123,8 @@ class PayURLMixin(ObjectItemMixin):
     """
     PAY_URL = 'https://www.mychoice2pay.com/pay/%s/'
 
-    @id_required_and_not_deleted
     @property
+    @id_required_and_not_deleted
     def pay_url(self):
         """
         :return: pay url
