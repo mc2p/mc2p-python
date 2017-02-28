@@ -1,4 +1,4 @@
-from .base import RetrieveObjectItemMixin, DeleteSaveRetrieveObjectItem, CreateRetrieveObjectItem
+from .base import RetrieveObjectItem, DeleteSaveRetrieveObjectItem, CreateRetrieveObjectItem
 
 
 class Product(DeleteSaveRetrieveObjectItem):
@@ -29,13 +29,13 @@ class Subscription(CreateRetrieveObjectItem):
     pass
 
 
-class Sale(RetrieveObjectItemMixin):
+class Sale(RetrieveObjectItem):
     pass
 
 
-class Currency(RetrieveObjectItemMixin):
+class Currency(RetrieveObjectItem):
     pass
 
 
-class Gateway(RetrieveObjectItemMixin):
+class Gateway(RetrieveObjectItem):
     pass
