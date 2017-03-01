@@ -2,6 +2,7 @@ from .request import APIRequest
 from .resources import ProductResource, PlanResource, TaxResource, ShippingResource, CouponResource, \
     TransactionResource, SubscriptionResource, SaleResource, CurrencyResource, GatewayResource
 from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Sale, Currency, Gateway
+from .notification import NotificationData
 
 
 def class_decorator(cls, resource):
@@ -49,3 +50,5 @@ class MC2PClient(object):
         self.Sale = class_decorator(Sale, self.sale)
         self.Currency = class_decorator(Currency, self.currency)
         self.Gateway = class_decorator(Gateway, self.gateway)
+
+        self.NotificationData = class_decorator(NotificationData, self)
