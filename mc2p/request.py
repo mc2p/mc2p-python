@@ -9,7 +9,7 @@ class APIRequest(object):
     API request - class used to connect with the API
     """
     AUTHORIZATION_HEADER = 'AppKeys'
-    API_URL = 'api.mychoice2pay.com'
+    API_URL = 'api.mychoice2pay.com/v1/public'
 
     def __init__(self, key, secret_key):
         """
