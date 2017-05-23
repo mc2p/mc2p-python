@@ -121,7 +121,7 @@ class PayURLMixin(ObjectItemMixin):
     """
     Add property to get pay_url based on token
     """
-    PAY_URL = 'https://www.mychoice2pay.com/pay/%s/'
+    PAY_URL = 'https://pay.mychoice2pay.com/#/%s'
 
     @property
     @id_required_and_not_deleted
