@@ -61,7 +61,7 @@ class APIRequest(object):
             request = requests.request(
                 method,
                 abs_url if abs_url else self.get_abs_url(path),
-                data=json.dumps(data),
+                data=json.dumps(data) if data else None,
                 headers=self.headers
             )
 
