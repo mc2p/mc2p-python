@@ -23,15 +23,17 @@ setup(
     version=version,
     url='https://github.com/mc2p/mc2p-python',
     license='BSD',
-    description='MyChoice2Pay Python',
+    description='MyChoice2Pay Pythoni Bindings',
     long_description=README,
     author='MyChoice2Pay',
     author_email='support@mychoice2pay.com',
+    url='https://github.com/mc2p/mc2p-python',
+    download_url='https://github.com/mc2p/mc2p-python/archive/v0.0.1.tar.gz',
     packages=find_packages(),
     install_requires=[
         'requests'
     ],
-    zip_safe=False,
+    keywords=['mychoice2pay', 'payments'],
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
