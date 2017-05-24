@@ -27,8 +27,7 @@ setup(
     long_description=README,
     author='MyChoice2Pay',
     author_email='support@mychoice2pay.com',
-    url='https://github.com/mc2p/mc2p-python',
-    download_url='https://github.com/mc2p/mc2p-python/archive/v0.0.1.tar.gz',
+    download_url='https://github.com/mc2p/mc2p-python/archive/v0.0.2.tar.gz',
     packages=find_packages(),
     install_requires=[
         'requests'
