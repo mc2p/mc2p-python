@@ -83,7 +83,18 @@ class ReadOnlyObjectItem(RetrieveObjectItemMixin, ObjectItem):
     """
     Object item that allows retrieve an item
     """
-    pass
+    @classmethod
+    def get(cls, object_id):
+        """
+        Retrieve object with object_id and return
+        :param object_id: Id to retrieve
+        :return: Object after retrieve
+        """
+        obj = cls({
+            cls.ID_PROPERTY: object_id
+        })
+        obj.retrieve()
+        return obj
 
 
 class CRObjectItem(CreateObjectItemMixin, ReadOnlyObjectItem):
@@ -95,14 +106,14 @@ class CRObjectItem(CreateObjectItemMixin, ReadOnlyObjectItem):
 
 class CRUObjectItem(SaveObjectItemMixin, ReadOnlyObjectItem):
     """
-    Object item that allows retrieve, create and save an item
+    Object item that allows retrieve, create and change an item
     """
     pass
 
 
 class CRUDObjectItem(DeleteObjectItemMixin, CRUObjectItem):
     """
-    Object item that allows retrieve, create, save and delete an item
+    Object item that allows retrieve, create, change and delete an item
     """
     pass
 
