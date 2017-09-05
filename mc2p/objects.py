@@ -1,5 +1,5 @@
 from .base import ReadOnlyObjectItem, CRUDObjectItem, CRObjectItem
-from .mixin import PayURLMixin, ActionsObjectItemMixin
+from .mixin import PayURLMixin, RefundCaptureVoidObjectItemMixin, CardShareObjectItemMixin
 
 
 class Product(CRUDObjectItem):
@@ -51,7 +51,7 @@ class Subscription(PayURLMixin, CRObjectItem):
     pass
 
 
-class Sale(ActionsObjectItemMixin, ReadOnlyObjectItem):
+class Sale(RefundCaptureVoidObjectItemMixin, ReadOnlyObjectItem):
     """
     Sale object
     """
@@ -70,3 +70,11 @@ class Gateway(ReadOnlyObjectItem):
     Gateway object
     """
     pass
+
+
+class PayData(CardShareObjectItemMixin, ReadOnlyObjectItem):
+    """
+    PayData object
+    """
+    pass
+
