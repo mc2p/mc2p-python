@@ -1,6 +1,6 @@
 from .mixin import ObjectItemMixin, DeleteObjectItemMixin, RetrieveObjectItemMixin, SaveObjectItemMixin, \
-    CreateObjectItemMixin, ResourceMixin, ReadOnlyResourceMixin, CreateResourceMixin, DeleteResourceMixin, \
-    ChangeResourceMixin
+    CreateObjectItemMixin, ResourceMixin, DetailOnlyResourceMixin, ReadOnlyResourceMixin, CreateResourceMixin, \
+    DeleteResourceMixin, ChangeResourceMixin
 
 
 class Paginator(object):
@@ -131,6 +131,13 @@ class Resource(ResourceMixin):
         :param api_request: Api request used to make all the requests to the API
         """
         self.api_request = api_request
+
+
+class DetailOnlyResource(DetailOnlyResourceMixin, Resource):
+    """
+    Resource that allows send requests of detail
+    """
+    pass
 
 
 class ReadOnlyResource(ReadOnlyResourceMixin, Resource):
