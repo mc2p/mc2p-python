@@ -122,6 +122,7 @@ class PayURLMixin(ObjectItemMixin):
     Add property to get pay_url based on token
     """
     PAY_URL = 'https://pay.mychoice2pay.com/#/%s'
+    IFRAME_URL = 'https://pay.mychoice2pay.com/#/%s/iframe'
 
     @property
     @id_required_and_not_deleted
@@ -130,6 +131,14 @@ class PayURLMixin(ObjectItemMixin):
         :return: pay url
         """
         return self.PAY_URL % self.json_dict['token']
+
+    @property
+    @id_required_and_not_deleted
+    def iframe_url(self):
+        """
+        :return: iframe url
+        """
+        return self.IFRAME_URL % self.json_dict['token']
 
 
 class ResourceMixin(object):
