@@ -117,16 +117,16 @@ class SaveObjectItemMixin(CreateObjectItemMixin):
             self._create()
 
 
-class ActionsObjectItemMixin(ObjectItemMixin):
+class RefundCaptureVoidObjectItemMixin(ObjectItemMixin):
     """
-    Allows make actions an object item
+    Allows make refund, capture and void an object item
     """
     @id_required_and_not_deleted
     def refund(self, data=None):
         """
         Refund the object item
         :param data: data to send
-        :return: tuple with success and response if success is false
+        :return: response dictionary
         """
         return self.resource.refund(
             self.json_dict[self.ID_PROPERTY],
@@ -138,7 +138,7 @@ class ActionsObjectItemMixin(ObjectItemMixin):
         """
         Capture the object item
         :param data: data to send
-        :return: tuple with success and response if success is false
+        :return: response dictionary
         """
         return self.resource.capture(
             self.json_dict[self.ID_PROPERTY],
@@ -150,9 +150,38 @@ class ActionsObjectItemMixin(ObjectItemMixin):
         """
         Void the object item
         :param data: data to send
-        :return: tuple with success and response if success is false
+        :return: response dictionary
         """
         return self.resource.void(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+
+class CardShareObjectItemMixin(ObjectItemMixin):
+    """
+    Allows make card and share an object item
+    """
+    @id_required_and_not_deleted
+    def card(self, data=None):
+        """
+        Send card details
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self.resource.card(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+    @id_required_and_not_deleted
+    def share(self, data=None):
+        """
+        Send share details
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self.resource.share(
             self.json_dict[self.ID_PROPERTY],
             data
         )
@@ -201,18 +230,6 @@ class ResourceMixin(object):
             resource_id
         )
 
-    def detail_action_url(self, resource_id, action):
-        """
-        :param resource_id: id used on the url returned
-        :param action: action used on the url returned
-        :return: url to make an action in an item
-        """
-        return '%s%s/%s/' % (
-            self.PATH,
-            resource_id,
-            action
-        )
-
     def _one_item(self, func, data=None, resource_id=None):
         """
         Help function to make a request that return one item
@@ -236,27 +253,21 @@ class ResourceMixin(object):
             self
         )
 
-    def _one_item_action(self, func, resource_id, action, data=None):
+
+class DetailOnlyResourceMixin(ResourceMixin):
+    """
+    Allows send requests of detail
+    """
+    def detail(self, resource_id):
         """
-        Help function to make an action in an item
-        :param func: function to make the request
-        :param resource_id: id to use on the requested url
-        :param action: action to use on the requested url
-        :param data: data passed in the request
-        :return: tuple with success and response if success is false
+        :param resource_id: id to request
+        :return: an object item class with the response of the server
         """
-        url = self.detail_action_url(resource_id, action)
-
-        json_dict = func(
-            url,
-            data,
-            resource=self,
-            resource_id=resource_id
-        )
-        return json_dict['success'], json_dict['response']
+        return self._one_item(self.api_request.get,
+                              resource_id=resource_id)
 
 
-class ReadOnlyResourceMixin(ResourceMixin):
+class ReadOnlyResourceMixin(DetailOnlyResourceMixin):
     """
     Allows send requests of list and detail
     """
@@ -281,14 +292,6 @@ class ReadOnlyResourceMixin(ResourceMixin):
             self.OBJECT_ITEM_CLASS,
             self
         )
-
-    def detail(self, resource_id):
-        """
-        :param resource_id: id to request
-        :return: an object item class with the response of the server
-        """
-        return self._one_item(self.api_request.get,
-                              resource_id=resource_id)
 
 
 class CreateResourceMixin(ResourceMixin):
@@ -335,11 +338,46 @@ class ActionsResourceMixin(ResourceMixin):
     """
     Allows send requests of actions
     """
+    def detail_action_url(self, resource_id, action):
+        """
+        :param resource_id: id used on the url returned
+        :param action: action used on the url returned
+        :return: url to make an action in an item
+        """
+        return '%s%s/%s/' % (
+            self.PATH,
+            resource_id,
+            action
+        )
+
+    def _one_item_action(self, func, resource_id, action, data=None):
+        """
+        Help function to make an action in an item
+        :param func: function to make the request
+        :param resource_id: id to use on the requested url
+        :param action: action to use on the requested url
+        :param data: data passed in the request
+        :return: response dictionary
+        """
+        url = self.detail_action_url(resource_id, action)
+
+        return func(
+            url,
+            data,
+            resource=self,
+            resource_id=resource_id
+        )
+
+
+class RefundCaptureVoidResourceMixin(ActionsResourceMixin):
+    """
+    Allows send action requests of refund, capture and void
+    """
     def refund(self, resource_id, data=None):
         """
         :param resource_id: id to request
         :param data: data to send
-        :return: tuple with success and response if success is false
+        :return: response dictionary
         """
         return self._one_item_action(self.api_request.delete,
                                      resource_id,
@@ -350,7 +388,7 @@ class ActionsResourceMixin(ResourceMixin):
         """
         :param resource_id: id to request
         :param data: data to send
-        :return: tuple with success and response if success is false
+        :return: response dictionary
         """
         return self._one_item_action(self.api_request.delete,
                                      resource_id,
@@ -361,9 +399,36 @@ class ActionsResourceMixin(ResourceMixin):
         """
         :param resource_id: id to request
         :param data: data to send
-        :return: tuple with success and response if success is false
+        :return: response dictionary
         """
         return self._one_item_action(self.api_request.delete,
                                      resource_id,
                                      'void',
+                                     data)
+
+
+class CardShareResourceMixin(ActionsResourceMixin):
+    """
+    Allows send action requests of card and share
+    """
+    def card(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self._one_item_action(self.api_request.delete,
+                                     resource_id,
+                                     'card',
+                                     data)
+
+    def share(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self._one_item_action(self.api_request.delete,
+                                     resource_id,
+                                     'share',
                                      data)
