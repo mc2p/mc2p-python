@@ -19,6 +19,20 @@ class NotificationData(object):
         return self.json_body['status']
 
     @property
+    def subscription_status(self):
+        """
+        :return: status of subscription
+        """
+        return self.json_body['subscription_status']
+
+    @property
+    def subscription_status(self):
+        """
+        :return: status of subscription
+        """
+        return self.json_body['subscription_status']
+
+    @property
     def type(self):
         """
         :return: type of payment
@@ -33,6 +47,13 @@ class NotificationData(object):
         return self.json_body['order_id']
 
     @property
+    def action(self):
+        """
+        :return: action executed
+        """
+        return self.json_body['action']
+
+    @property
     def transaction(self):
         """
         :return: transaction generated when payment was created
@@ -40,11 +61,7 @@ class NotificationData(object):
         if self.type != 'P':
             return None
 
-        transaction = self.mc2p.Transaction({
-            'id': self.json_body['id']
-        })
-        transaction.retrieve()
-        return transaction
+        return self.mc2p.Transaction.get(self.json_body['id'])
 
     @property
     def subscription(self):
@@ -54,11 +71,7 @@ class NotificationData(object):
         if self.type != 'S':
             return None
 
-        subscription = self.mc2p.Subscription({
-            'id': self.json_body['id']
-        })
-        subscription.retrieve()
-        return subscription
+        return self.mc2p.Subscription.get(self.json_body['id'])
 
     @property
     def sale(self):
@@ -68,8 +81,11 @@ class NotificationData(object):
         if not self.json_body.get('sale_id', False):
             return None
 
-        sale = self.mc2p.Sale({
-            'id': self.json_body['sale_id']
-        })
-        sale.retrieve()
-        return sale
+        return self.mc2p.Sale.get(self.json_body['sale_id'])
+
+    @property
+    def sale_action(self):
+        """
+        :return: action of sale executed
+        """
+        return self.json_body['sale_action']
