@@ -117,6 +117,47 @@ class SaveObjectItemMixin(CreateObjectItemMixin):
             self._create()
 
 
+class ActionsObjectItemMixin(ObjectItemMixin):
+    """
+    Allows make actions an object item
+    """
+    @id_required_and_not_deleted
+    def refund(self, data=None):
+        """
+        Refund the object item
+        :param data: data to send
+        :return: tuple with success and response if success is false
+        """
+        return self.resource.refund(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+    @id_required_and_not_deleted
+    def capture(self, data=None):
+        """
+        Capture the object item
+        :param data: data to send
+        :return: tuple with success and response if success is false
+        """
+        return self.resource.capture(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+    @id_required_and_not_deleted
+    def void(self, data=None):
+        """
+        Void the object item
+        :param data: data to send
+        :return: tuple with success and response if success is false
+        """
+        return self.resource.void(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+
 class PayURLMixin(ObjectItemMixin):
     """
     Add property to get pay_url based on token
@@ -160,6 +201,18 @@ class ResourceMixin(object):
             resource_id
         )
 
+    def detail_action_url(self, resource_id, action):
+        """
+        :param resource_id: id used on the url returned
+        :param action: action used on the url returned
+        :return: url to make an action in an item
+        """
+        return '%s%s/%s/' % (
+            self.PATH,
+            resource_id,
+            action
+        )
+
     def _one_item(self, func, data=None, resource_id=None):
         """
         Help function to make a request that return one item
@@ -182,6 +235,25 @@ class ResourceMixin(object):
             ),
             self
         )
+
+    def _one_item_action(self, func, resource_id, action, data=None):
+        """
+        Help function to make an action in an item
+        :param func: function to make the request
+        :param resource_id: id to use on the requested url
+        :param action: action to use on the requested url
+        :param data: data passed in the request
+        :return: tuple with success and response if success is false
+        """
+        url = self.detail_action_url(resource_id, action)
+
+        json_dict = func(
+            url,
+            data,
+            resource=self,
+            resource_id=resource_id
+        )
+        return json_dict['success'], json_dict['response']
 
 
 class ReadOnlyResourceMixin(ResourceMixin):
@@ -257,3 +329,41 @@ class DeleteResourceMixin(ResourceMixin):
         """
         self._one_item(self.api_request.delete,
                        resource_id=resource_id)
+
+
+class ActionsResourceMixin(ResourceMixin):
+    """
+    Allows send requests of actions
+    """
+    def refund(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: tuple with success and response if success is false
+        """
+        return self._one_item_action(self.api_request.delete,
+                                     resource_id,
+                                     'refund',
+                                     data)
+
+    def capture(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: tuple with success and response if success is false
+        """
+        return self._one_item_action(self.api_request.delete,
+                                     resource_id,
+                                     'capture',
+                                     data)
+
+    def void(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: tuple with success and response if success is false
+        """
+        return self._one_item_action(self.api_request.delete,
+                                     resource_id,
+                                     'void',
+                                     data)

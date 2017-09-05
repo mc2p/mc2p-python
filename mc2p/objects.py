@@ -1,5 +1,5 @@
 from .base import ReadOnlyObjectItem, CRUDObjectItem, CRObjectItem
-from .mixin import PayURLMixin
+from .mixin import PayURLMixin, ActionsObjectItemMixin
 
 
 class Product(CRUDObjectItem):
@@ -51,7 +51,7 @@ class Subscription(PayURLMixin, CRObjectItem):
     pass
 
 
-class Sale(ReadOnlyObjectItem):
+class Sale(ActionsObjectItemMixin, ReadOnlyObjectItem):
     """
     Sale object
     """
