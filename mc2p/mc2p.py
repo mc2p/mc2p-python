@@ -12,8 +12,16 @@ def class_decorator(cls, resource):
     :param resource: Resource used to initializes the object
     :return: Function that only receive the json_dict value
     """
+    cls.resource = resource
+
     def init(json_dict):
         return cls(json_dict, resource)
+
+    try:
+        init.get = cls.get
+    except:
+        pass
+
     return init
 
 

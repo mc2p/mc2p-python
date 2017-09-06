@@ -92,7 +92,7 @@ class ReadOnlyObjectItem(RetrieveObjectItemMixin, ObjectItem):
         """
         obj = cls({
             cls.ID_PROPERTY: object_id
-        })
+        }, cls.resource)
         obj.retrieve()
         return obj
 
