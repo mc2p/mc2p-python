@@ -379,7 +379,7 @@ class RefundCaptureVoidResourceMixin(ActionsResourceMixin):
         :param data: data to send
         :return: response dictionary
         """
-        return self._one_item_action(self.api_request.delete,
+        return self._one_item_action(self.api_request.post_200,
                                      resource_id,
                                      'refund',
                                      data)
@@ -390,7 +390,7 @@ class RefundCaptureVoidResourceMixin(ActionsResourceMixin):
         :param data: data to send
         :return: response dictionary
         """
-        return self._one_item_action(self.api_request.delete,
+        return self._one_item_action(self.api_request.post_200,
                                      resource_id,
                                      'capture',
                                      data)
@@ -401,7 +401,7 @@ class RefundCaptureVoidResourceMixin(ActionsResourceMixin):
         :param data: data to send
         :return: response dictionary
         """
-        return self._one_item_action(self.api_request.delete,
+        return self._one_item_action(self.api_request.post_200,
                                      resource_id,
                                      'void',
                                      data)
@@ -417,7 +417,7 @@ class CardShareResourceMixin(ActionsResourceMixin):
         :param data: data to send
         :return: response dictionary
         """
-        return self._one_item_action(self.api_request.delete,
+        return self._one_item_action(self.api_request.post_200,
                                      resource_id,
                                      'card',
                                      data)
@@ -428,7 +428,7 @@ class CardShareResourceMixin(ActionsResourceMixin):
         :param data: data to send
         :return: response dictionary
         """
-        return self._one_item_action(self.api_request.delete,
+        return self._one_item_action(self.api_request.post_200,
                                      resource_id,
                                      'share',
                                      data)

@@ -307,3 +307,21 @@ class TestMC2P(unittest.TestCase):
         self.assertEqual(subscription_get.plan['duration'], 1)
         self.assertEqual(subscription_get.plan['unit'], 'M')
         self.assertEqual(subscription_get.plan['recurring'], True)
+
+    def test_sale(self):
+        sale_list = self.mc2p_client.sale.list()
+        self.assertIsInstance(sale_list, base.Paginator)
+        self.assertIsInstance(sale_list.results, list)
+        self.assertIsInstance(sale_list.count, int)
+
+        sale = self.mc2p_client.Sale.get('d1bb7082-7a97-48c6-893d-4d5febcd463b')
+        self.assertEqual(float(sale.amount), 5)
+
+        result = sale.refund()
+        self.assertEqual(result['success'], False)
+
+        result = sale.capture()
+        self.assertEqual(result['success'], False)
+
+        result = sale.void()
+        self.assertEqual(result['success'], False)

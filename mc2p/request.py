@@ -21,6 +21,7 @@ class APIRequest(object):
         self.secret_key = secret_key
 
         self.post = self._request('POST', 201)
+        self.post_200 = self._request('POST', 200)
         self.get = self._request('GET')
         self.patch = self._request('PATCH')
         self.delete = self._request('DELETE', 204)
