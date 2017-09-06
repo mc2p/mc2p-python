@@ -234,3 +234,76 @@ class TestMC2P(unittest.TestCase):
             self.mc2p_client.Coupon.get(coupon.id)
         except Exception as e:
             self.assertIsInstance(e, errors.MC2PError)
+
+    def test_transaction(self):
+        transaction_list = self.mc2p_client.transaction.list()
+        self.assertIsInstance(transaction_list, base.Paginator)
+        self.assertIsInstance(transaction_list.results, list)
+        self.assertIsInstance(transaction_list.count, int)
+
+        transaction = self.mc2p_client.Transaction({
+            'currency': 'EUR',
+            'products': [{
+                'amount': 1,
+                'product': {
+                    'name': 'Product',
+                    'price': 5
+                }
+            }]
+        })
+        transaction.save()
+        self.assertEqual(transaction.currency, 'EUR')
+        self.assertIsInstance(transaction.products, list)
+        self.assertIsInstance(transaction.pay_url, str)
+        self.assertIsInstance(transaction.iframe_url, str)
+        self.assertEqual(transaction.products[0]['amount'], 1)
+        self.assertEqual(transaction.products[0]['product']['name'], 'Product')
+        self.assertEqual(float(transaction.products[0]['product']['price']), 5)
+
+        transaction_get = self.mc2p_client.Transaction.get(transaction.id)
+        self.assertEqual(transaction_get.id, transaction.id)
+        self.assertEqual(transaction_get.currency, 'EUR')
+        self.assertIsInstance(transaction_get.products, list)
+        self.assertIsInstance(transaction_get.pay_url, str)
+        self.assertIsInstance(transaction_get.iframe_url, str)
+        self.assertEqual(transaction_get.products[0]['amount'], 1)
+        self.assertEqual(transaction_get.products[0]['product']['name'], 'Product')
+        self.assertEqual(float(transaction_get.products[0]['product']['price']), 5)
+
+    def test_subscription(self):
+        subscription_list = self.mc2p_client.subscription.list()
+        self.assertIsInstance(subscription_list, base.Paginator)
+        self.assertIsInstance(subscription_list.results, list)
+        self.assertIsInstance(subscription_list.count, int)
+
+        subscription = self.mc2p_client.Subscription({
+            'currency': 'EUR',
+            'plan': {
+                'name': 'Plan',
+                'price': 5,
+                'duration': 1,
+                'unit': 'M',
+                'recurring': True
+            },
+            'note': 'Note example'
+        })
+        subscription.save()
+        self.assertEqual(subscription.currency, 'EUR')
+        self.assertIsInstance(subscription.pay_url, str)
+        self.assertIsInstance(subscription.iframe_url, str)
+        self.assertEqual(subscription.plan['name'], 'Plan')
+        self.assertEqual(float(subscription.plan['price']), 5)
+        self.assertEqual(subscription.plan['duration'], 1)
+        self.assertEqual(subscription.plan['unit'], 'M')
+        self.assertEqual(subscription.plan['recurring'], True)
+
+        subscription_get = self.mc2p_client.Subscription.get(subscription.id)
+        self.assertEqual(subscription_get.id, subscription.id)
+        self.assertEqual(subscription_get.currency, 'EUR')
+        self.assertIsInstance(subscription_get.pay_url, str)
+        self.assertIsInstance(subscription_get.iframe_url, str)
+        self.assertEqual(subscription_get.plan['name'], 'Plan')
+        self.assertEqual(float(subscription_get.plan['price']), 5)
+        self.assertEqual(subscription_get.plan['duration'], 1)
+        self.assertEqual(subscription_get.plan['unit'], 'M')
+        self.assertEqual(subscription_get.plan['recurring'], True)

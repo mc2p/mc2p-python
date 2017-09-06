@@ -86,7 +86,7 @@ or to install from source, run:
             "price": 5,
             "duration": 1,
             "unit": "M",
-            "recurring": true
+            "recurring": True
         },
         "note": "Note example"
     })
