@@ -1,7 +1,10 @@
 import unittest
 import warnings
 
-from ConfigParser import ConfigParser
+try:
+    from ConfigParser import ConfigParser
+except:
+    from configparser import ConfigParser
 
 import mc2p
 from mc2p import objects, resources, base
