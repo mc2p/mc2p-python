@@ -38,7 +38,7 @@ setup(
     version=version,
     url='https://github.com/mc2p/mc2p-python',
     license='BSD',
-    description='MyChoice2Pay Pythoni Bindings',
+    description='MyChoice2Pay Python Bindings',
     long_description=README,
     author='MyChoice2Pay',
     author_email='support@mychoice2pay.com',
