@@ -244,7 +244,7 @@ class TestMC2P(unittest.TestCase):
         self.assertIsInstance(next_transaction_list, base.Paginator)
         self.assertIsInstance(next_transaction_list.results, list)
         self.assertIsInstance(next_transaction_list.count, int)
-        previous_transaction_list = transaction_list.get_previous_list()
+        previous_transaction_list = next_transaction_list.get_previous_list()
         self.assertIsInstance(previous_transaction_list, base.Paginator)
         self.assertIsInstance(previous_transaction_list.results, list)
         self.assertIsInstance(previous_transaction_list.count, int)
@@ -353,9 +353,9 @@ class TestMC2P(unittest.TestCase):
         self.assertIsInstance(gateway_list.count, int)
 
     def test_pay_data(self):
-        pay_data = self.mc2p_client.PayData.get('14c2c7ca805f40418cfbed1881af883d')
+        pay_data = self.mc2p_client.PayData.get('c11e3d0b374945609ea451183665f581')
         self.assertEqual(pay_data.app_name, 'GitHub Test')
-        self.assertEqual(pay_data.transaction['token'], '14c2c7ca805f40418cfbed1881af883d')
+        self.assertEqual(pay_data.transaction['token'], 'c11e3d0b374945609ea451183665f581')
         self.assertIsInstance(pay_data.gateways, list)
         self.assertEqual(pay_data.gateways[0]['name'], 'Divvy')
         self.assertEqual(pay_data.gateways[0]['code'], 'DVG')
@@ -372,3 +372,27 @@ class TestMC2P(unittest.TestCase):
         except Exception as e:
             self.assertIsInstance(e, errors.MC2PError)
             self.assertIsInstance(e.json_body, dict)
+
+    def test_notification_data(self):
+        # JSON data received in the notification url
+        notification_data = self.mc2p_client.NotificationData({
+            'status': 'D',
+            'subscription_status': '',
+            'type': 'P',
+            'order_id': '',
+            'action': 'D',
+            'id': 'c8325bb3-c24e-4c0c-b0ff-14fe89bf9f1f',
+            'sale_id': 'd1bb7082-7a97-48c6-893d-4d5febcd463b',
+            'sale_action': 'G'
+
+        })
+        self.assertEqual(notification_data.status, 'D')
+        self.assertEqual(notification_data.subscription_status, '')
+        self.assertEqual(notification_data.type, 'P')
+        self.assertEqual(notification_data.order_id, '')
+        self.assertEqual(notification_data.action, 'D')
+        self.assertEqual(notification_data.sale_action, 'G')
+        self.assertIsInstance(notification_data.transaction, objects.Transaction)
+        self.assertEqual(notification_data.transaction.id, 'c8325bb3-c24e-4c0c-b0ff-14fe89bf9f1f')
+        self.assertIsInstance(notification_data.sale, objects.Sale)
+        self.assertEqual(notification_data.sale.id, 'd1bb7082-7a97-48c6-893d-4d5febcd463b')
