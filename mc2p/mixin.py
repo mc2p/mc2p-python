@@ -163,14 +163,16 @@ class CardShareObjectItemMixin(ObjectItemMixin):
     Allows make card and share an object item
     """
     @id_required_and_not_deleted
-    def card(self, data=None):
+    def card(self, gateway_code, data=None):
         """
         Send card details
+        :param gateway_code: gateway_code to send
         :param data: data to send
         :return: response dictionary
         """
         return self.resource.card(
             self.json_dict[self.ID_PROPERTY],
+            gateway_code,
             data
         )
 
@@ -411,15 +413,16 @@ class CardShareResourceMixin(ActionsResourceMixin):
     """
     Allows send action requests of card and share
     """
-    def card(self, resource_id, data=None):
+    def card(self, resource_id, gateway_code, data=None):
         """
         :param resource_id: id to request
+        :param gateway_code: gateway_code to send
         :param data: data to send
         :return: response dictionary
         """
         return self._one_item_action(self.api_request.post_200,
                                      resource_id,
-                                     'card',
+                                     'card/%s' % gateway_code,
                                      data)
 
     def share(self, resource_id, data=None):

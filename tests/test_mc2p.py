@@ -351,3 +351,24 @@ class TestMC2P(unittest.TestCase):
         self.assertIsInstance(gateway_list, base.Paginator)
         self.assertIsInstance(gateway_list.results, list)
         self.assertIsInstance(gateway_list.count, int)
+
+    def test_pay_data(self):
+        pay_data = self.mc2p_client.PayData.get('14c2c7ca805f40418cfbed1881af883d')
+        self.assertEqual(pay_data.app_name, 'GitHub Test')
+        self.assertEqual(pay_data.transaction['token'], '14c2c7ca805f40418cfbed1881af883d')
+        self.assertIsInstance(pay_data.gateways, list)
+        self.assertEqual(pay_data.gateways[0]['name'], 'Divvy')
+        self.assertEqual(pay_data.gateways[0]['code'], 'DVG')
+        self.assertEqual(pay_data.gateways[0]['form'], 'shared')
+
+        try:
+             pay_data.card('DVG', {})
+        except Exception as e:
+            self.assertIsInstance(e, errors.MC2PError)
+            self.assertIsInstance(e.json_body, dict)
+
+        try:
+             pay_data.share({})
+        except Exception as e:
+            self.assertIsInstance(e, errors.MC2PError)
+            self.assertIsInstance(e.json_body, dict)

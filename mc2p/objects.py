@@ -76,5 +76,5 @@ class PayData(CardShareObjectItemMixin, ReadOnlyObjectItem):
     """
     PayData object
     """
-    pass
+    ID_PROPERTY = 'token'
 
