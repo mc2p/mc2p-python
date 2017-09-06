@@ -5,6 +5,10 @@
 
 MyChoice2Pay Python provides integration access to the MyChoice2Pay API.
 
+[![Build Status](https://travis-ci.org/mc2p/mc2p-python.svg?branch=master)](https://travis-ci.org/mc2p/mc2p-python)
+[![Coverage Status](https://coveralls.io/repos/github/mc2p/mc2p-python/badge.svg?branch=master)](https://coveralls.io/github/mc2p/mc2p-python?branch=master)
+[![Code Health](https://landscape.io/github/mc2p/mc2p-python/master/landscape.svg?style=flat)](https://landscape.io/github/mc2p/mc2p-python/master)
+
 # Installation
 
 You can install using `pip`:
