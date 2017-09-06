@@ -1,7 +1,22 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Command
 
 import os
 import re
+
+
+class CoverageCommand(Command):
+    description = "coverage report"
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        os.system('coverage run --source mc2p setup.py test')
+        os.system('coverage html')
 
 
 def get_version(package):
@@ -28,11 +43,19 @@ setup(
     author='MyChoice2Pay',
     author_email='support@mychoice2pay.com',
     download_url='https://github.com/mc2p/mc2p-python/archive/v0.0.2.tar.gz',
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests']),
     install_requires=[
         'requests'
     ],
     keywords=['mychoice2pay', 'payments'],
+    extras_require={
+        'test': ['mock', 'coverage'],
+    },
+    cmdclass={
+        'coverage': CoverageCommand
+    },
+
+    test_suite="tests",
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',

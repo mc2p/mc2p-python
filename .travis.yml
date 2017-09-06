@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.4"
+install:
+  - pip install coveralls
+  - pip install -e '.[test]'
+script: coverage run --source mc2p setup.py test
+after_success: coveralls
+cache: pip
