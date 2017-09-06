@@ -120,3 +120,117 @@ class TestMC2P(unittest.TestCase):
             self.mc2p_client.Plan.get(plan.id)
         except Exception as e:
             self.assertIsInstance(e, errors.MC2PError)
+
+    def test_tax(self):
+        tax_list = self.mc2p_client.tax.list()
+        self.assertIsInstance(tax_list, base.Paginator)
+        self.assertIsInstance(tax_list.results, list)
+        self.assertIsInstance(tax_list.count, int)
+
+        tax = self.mc2p_client.Tax({
+            'name': 'Tax 1',
+            'percent': 1
+        })
+        tax.save()
+        self.assertEqual(tax.name, 'Tax 1')
+        self.assertEqual(float(tax.percent), 1)
+
+        tax.name = 'Tax 2'
+        tax.percent = 2
+        tax.save()
+        self.assertEqual(tax.name, 'Tax 2')
+        self.assertEqual(float(tax.percent), 2)
+
+        tax_get = self.mc2p_client.Tax.get(tax.id)
+        self.assertEqual(tax_get.id, tax.id)
+        self.assertEqual(tax.name, 'Tax 2')
+        self.assertEqual(float(tax.percent), 2)
+
+        tax_get.delete()
+        self.assertEqual(tax_get._deleted, True)
+
+        try:
+            self.mc2p_client.Tax.get(tax.id)
+        except Exception as e:
+            self.assertIsInstance(e, errors.MC2PError)
+
+    def test_shipping(self):
+        shipping_list = self.mc2p_client.shipping.list()
+        self.assertIsInstance(shipping_list, base.Paginator)
+        self.assertIsInstance(shipping_list.results, list)
+        self.assertIsInstance(shipping_list.count, int)
+
+        shipping = self.mc2p_client.Shipping({
+            'name': 'Shipping 1',
+            'price': 1
+        })
+        shipping.save()
+        self.assertEqual(shipping.name, 'Shipping 1')
+        self.assertEqual(float(shipping.price), 1)
+
+        shipping.name = 'Shipping 2'
+        shipping.price = 2
+        shipping.save()
+        self.assertEqual(shipping.name, 'Shipping 2')
+        self.assertEqual(float(shipping.price), 2)
+
+        shipping_get = self.mc2p_client.Shipping.get(shipping.id)
+        self.assertEqual(shipping_get.id, shipping.id)
+        self.assertEqual(shipping.name, 'Shipping 2')
+        self.assertEqual(float(shipping.price), 2)
+
+        shipping_get.delete()
+        self.assertEqual(shipping_get._deleted, True)
+
+        try:
+            self.mc2p_client.Shipping.get(shipping.id)
+        except Exception as e:
+            self.assertIsInstance(e, errors.MC2PError)
+
+    def test_coupon(self):
+        coupon_list = self.mc2p_client.shipping.list()
+        self.assertIsInstance(coupon_list, base.Paginator)
+        self.assertIsInstance(coupon_list.results, list)
+        self.assertIsInstance(coupon_list.count, int)
+
+        coupon = self.mc2p_client.Coupon({
+            'name': 'Coupon 1',
+            'code': '123',
+            'coupon_type': 'A',
+            'value': 1,
+            'total_uses': 1
+        })
+        coupon.save()
+        self.assertEqual(coupon.name, 'Coupon 1')
+        self.assertEqual(coupon.code, '123')
+        self.assertEqual(coupon.coupon_type, 'A')
+        self.assertEqual(float(coupon.value), 1)
+        self.assertEqual(coupon.total_uses, 1)
+
+        coupon.name = 'Coupon 2'
+        coupon.code = 'ABC'
+        coupon.coupon_type = 'P'
+        coupon.value = 2
+        coupon.total_uses = 2
+        coupon.save()
+        self.assertEqual(coupon.name, 'Coupon 2')
+        self.assertEqual(coupon.code, 'ABC')
+        self.assertEqual(coupon.coupon_type, 'P')
+        self.assertEqual(float(coupon.value), 2)
+        self.assertEqual(coupon.total_uses, 2)
+
+        coupon_get = self.mc2p_client.Coupon.get(coupon.id)
+        self.assertEqual(coupon_get.id, coupon.id)
+        self.assertEqual(coupon.name, 'Coupon 2')
+        self.assertEqual(coupon.code, 'ABC')
+        self.assertEqual(coupon.coupon_type, 'P')
+        self.assertEqual(float(coupon.value), 2)
+        self.assertEqual(coupon.total_uses, 2)
+
+        coupon_get.delete()
+        self.assertEqual(coupon_get._deleted, True)
+
+        try:
+            self.mc2p_client.Coupon.get(coupon.id)
+        except Exception as e:
+            self.assertIsInstance(e, errors.MC2PError)
