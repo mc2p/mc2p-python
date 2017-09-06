@@ -240,6 +240,14 @@ class TestMC2P(unittest.TestCase):
         self.assertIsInstance(transaction_list, base.Paginator)
         self.assertIsInstance(transaction_list.results, list)
         self.assertIsInstance(transaction_list.count, int)
+        next_transaction_list = transaction_list.get_next_list()
+        self.assertIsInstance(next_transaction_list, base.Paginator)
+        self.assertIsInstance(next_transaction_list.results, list)
+        self.assertIsInstance(next_transaction_list.count, int)
+        previous_transaction_list = transaction_list.get_previous_list()
+        self.assertIsInstance(previous_transaction_list, base.Paginator)
+        self.assertIsInstance(previous_transaction_list.results, list)
+        self.assertIsInstance(previous_transaction_list.count, int)
 
         transaction = self.mc2p_client.Transaction({
             'currency': 'EUR',
@@ -315,6 +323,7 @@ class TestMC2P(unittest.TestCase):
         self.assertIsInstance(sale_list.count, int)
 
         sale = self.mc2p_client.Sale.get('d1bb7082-7a97-48c6-893d-4d5febcd463b')
+        self.assertEqual(sale.id, 'd1bb7082-7a97-48c6-893d-4d5febcd463b')
         self.assertEqual(float(sale.amount), 5)
 
         result = sale.refund()
@@ -325,3 +334,20 @@ class TestMC2P(unittest.TestCase):
 
         result = sale.void()
         self.assertEqual(result['success'], False)
+
+    def test_currency(self):
+        currency_list = self.mc2p_client.currency.list()
+        self.assertIsInstance(currency_list, base.Paginator)
+        self.assertIsInstance(currency_list.results, list)
+        self.assertIsInstance(currency_list.count, int)
+
+        currency = self.mc2p_client.Currency.get('5d978f20-21c2-4315-98de-d1c117113e7b')
+        self.assertEqual(currency.id, '5d978f20-21c2-4315-98de-d1c117113e7b')
+        self.assertEqual(currency.name, 'Euro')
+        self.assertEqual(currency.code, 'EUR')
+
+    def test_gateway(self):
+        gateway_list = self.mc2p_client.gateway.list()
+        self.assertIsInstance(gateway_list, base.Paginator)
+        self.assertIsInstance(gateway_list.results, list)
+        self.assertIsInstance(gateway_list.count, int)
