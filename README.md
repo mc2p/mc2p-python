@@ -42,6 +42,7 @@ or to install from source, run:
     })
     transaction.save()
     transaction.pay_url # Send user to this url to pay
+    transaction.iframe_url # Use this url to show an iframe in your site
 
     # Get plans
     plans_paginator = mc2p.plan.list()
@@ -50,10 +51,7 @@ or to install from source, run:
     plans_paginator.get_next_list()
     
     # Get product, change and save
-    product = mc2p.Product({
-        "id": "PRODUCT-ID"
-    })
-    product.retrieve()
+    product = mc2p.Product.get("PRODUCT-ID")
     product.price = 10
     product.save()
     
@@ -66,10 +64,7 @@ or to install from source, run:
     tax.delete()
     
     # Check if transaction was paid
-    transaction = mc2p.Transaction({
-        "id": "TRANSACTION-ID"
-    })
-    transaction.retrieve()
+    transaction = mc2p.Transaction.get("TRANSACTION-ID")
     transaction.status == 'D' # Paid
     
     # Create subscription
@@ -92,6 +87,13 @@ or to install from source, run:
     })
     subscription.save()
     subscription.pay_url # Send user to this url to pay
+    subscription.iframe_url # Use this url to show an iframe in your site
+
+    # Receive a notification
+    notification_data = mc2p.NotificationData(JSON_DICT_RECEIVED_FROM_MYCHOICE2PAY)
+    notification_data.status == 'D' # Paid
+    notification_data.transaction # Transaction Paid
+    notification_data.sale # Sale generated
 
 # Exceptions
     
