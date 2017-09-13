@@ -34,6 +34,14 @@ or to install from source, run:
         "currency": "EUR",
         "products": [{
             "amount": 1,
+            "product_id": "PRODUCT-ID"
+        }]
+    })
+    # or with product details
+    transaction = mc2p.Transaction({
+        "currency": "EUR",
+        "products": [{
+            "amount": 1,
             "product": {
                 "name": "Product",
                 "price": 5
@@ -73,7 +81,7 @@ or to install from source, run:
         "plan_id": "PLAN-ID",
         "note": "Note example"
     })
-    # or
+    # or with plan details
     subscription = mc2p.Subscription({
         "currency": "EUR",
         "plan": {
