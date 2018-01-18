@@ -26,6 +26,13 @@ class NotificationData(object):
         return self.json_body['subscription_status']
 
     @property
+    def authorization_status(self):
+        """
+        :return: status of authorization
+        """
+        return self.json_body['authorization_status']
+
+    @property
     def type(self):
         """
         :return: type of payment

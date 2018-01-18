@@ -1,7 +1,9 @@
 from .request import APIRequest
 from .resources import ProductResource, PlanResource, TaxResource, ShippingResource, CouponResource, \
-    TransactionResource, SubscriptionResource, SaleResource, CurrencyResource, GatewayResource, PayDataResource
-from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Sale, Currency, Gateway, PayData
+    TransactionResource, SubscriptionResource, AuthorizationResource, SaleResource, CurrencyResource, \
+    GatewayResource, PayDataResource
+from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Authorization, Sale, Currency, \
+    Gateway, PayData
 from .notification import NotificationData
 
 
@@ -44,6 +46,7 @@ class MC2PClient(object):
         self.coupon = CouponResource(self.api_request)
         self.transaction = TransactionResource(self.api_request)
         self.subscription = SubscriptionResource(self.api_request)
+        self.authorization = AuthorizationResource(self.api_request)
         self.sale = SaleResource(self.api_request)
         self.currency = CurrencyResource(self.api_request)
         self.gateway = GatewayResource(self.api_request)
@@ -56,6 +59,7 @@ class MC2PClient(object):
         self.Coupon = class_decorator(Coupon, self.coupon)
         self.Transaction = class_decorator(Transaction, self.transaction)
         self.Subscription = class_decorator(Subscription, self.subscription)
+        self.Authorization = class_decorator(Authorization, self.authorization)
         self.Sale = class_decorator(Sale, self.sale)
         self.Currency = class_decorator(Currency, self.currency)
         self.Gateway = class_decorator(Gateway, self.gateway)

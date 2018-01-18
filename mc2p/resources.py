@@ -1,6 +1,7 @@
-from .mixin import RefundCaptureVoidResourceMixin, CardShareResourceMixin
+from .mixin import RefundCaptureVoidResourceMixin, CardShareResourceMixin, ChargeResourceMixin
 from .base import DetailOnlyResource, ReadOnlyResource, CRResource, CRUDResource
-from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Sale, Currency, Gateway, PayData
+from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Authorization, Sale, Currency, \
+    Gateway, PayData
 
 
 class ProductResource(CRUDResource):
@@ -57,6 +58,14 @@ class SubscriptionResource(CRResource):
     """
     PATH = '/subscription/'
     OBJECT_ITEM_CLASS = Subscription
+
+
+class AuthorizationResource(ChargeResourceMixin, CRResource):
+    """
+    Authorization resource
+    """
+    PATH = '/authorization/'
+    OBJECT_ITEM_CLASS = Authorization
 
 
 class SaleResource(RefundCaptureVoidResourceMixin, ReadOnlyResource):

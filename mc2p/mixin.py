@@ -117,6 +117,23 @@ class SaveObjectItemMixin(CreateObjectItemMixin):
             self._create()
 
 
+class ChargeObjectItemMixin(ObjectItemMixin):
+    """
+    Allows make charge an object item
+    """
+    @id_required_and_not_deleted
+    def charge(self, data=None):
+        """
+        Charge the object item
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self.resource.charge(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+
 class RefundCaptureVoidObjectItemMixin(ObjectItemMixin):
     """
     Allows make refund, capture and void an object item
@@ -369,6 +386,22 @@ class ActionsResourceMixin(ResourceMixin):
             resource=self,
             resource_id=resource_id
         )
+
+
+class ChargeResourceMixin(ActionsResourceMixin):
+    """
+    Allows send action requests of charge
+    """
+    def charge(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self._one_item_action(self.api_request.post_200,
+                                     resource_id,
+                                     'charge',
+                                     data)
 
 
 class RefundCaptureVoidResourceMixin(ActionsResourceMixin):

@@ -1,5 +1,5 @@
 from .base import ReadOnlyObjectItem, CRUDObjectItem, CRObjectItem
-from .mixin import PayURLMixin, RefundCaptureVoidObjectItemMixin, CardShareObjectItemMixin
+from .mixin import PayURLMixin, RefundCaptureVoidObjectItemMixin, CardShareObjectItemMixin, ChargeObjectItemMixin
 
 
 class Product(CRUDObjectItem):
@@ -47,6 +47,13 @@ class Transaction(PayURLMixin, CRObjectItem):
 class Subscription(PayURLMixin, CRObjectItem):
     """
     Subscription object
+    """
+    pass
+
+
+class Authorization(ChargeObjectItemMixin, PayURLMixin, ReadOnlyObjectItem):
+    """
+    Authorization object
     """
     pass
 

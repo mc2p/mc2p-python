@@ -1,8 +1,8 @@
 __title__ = 'MyChoice2Pay Python'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __author__ = 'MyChoice2Pay'
 __license__ = 'BSD 2-Clause'
-__copyright__ = 'Copyright 2017 MyChoice2Pay'
+__copyright__ = 'Copyright 2018 MyChoice2Pay'
 
 # Version synonym
 VERSION = __version__
