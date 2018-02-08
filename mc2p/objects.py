@@ -51,7 +51,7 @@ class Subscription(PayURLMixin, CRObjectItem):
     pass
 
 
-class Authorization(ChargeObjectItemMixin, PayURLMixin, ReadOnlyObjectItem):
+class Authorization(ChargeObjectItemMixin, PayURLMixin, CRObjectItem):
     """
     Authorization object
     """
