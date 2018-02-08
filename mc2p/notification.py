@@ -74,6 +74,16 @@ class NotificationData(object):
         return self.mc2p.Subscription.get(self.json_body['id'])
 
     @property
+    def authorization(self):
+        """
+        :return: authorization generated when payment was created
+        """
+        if self.type != 'A':
+            return None
+
+        return self.mc2p.Authorization.get(self.json_body['id'])
+
+    @property
     def sale(self):
         """
         :return: sale generated when payment was paid
