@@ -174,6 +174,58 @@ class RefundCaptureVoidObjectItemMixin(ObjectItemMixin):
             data
         )
 
+class StartPauseStopActiveObjectItemMixin(ObjectItemMixin):
+    """
+    Allows make start, pause, stop and active an object item
+    """
+    @id_required_and_not_deleted
+    def start(self, data=None):
+        """
+        Start the object item
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self.resource.start(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+    @id_required_and_not_deleted
+    def pause(self, data=None):
+        """
+        Pause the object item
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self.resource.pause(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+    @id_required_and_not_deleted
+    def stop(self, data=None):
+        """
+        Stop the object item
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self.resource.stop(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
+    @id_required_and_not_deleted
+    def active(self, data=None):
+        """
+        Active the object item
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self.resource.active(
+            self.json_dict[self.ID_PROPERTY],
+            data
+        )
+
 
 class CardShareObjectItemMixin(ObjectItemMixin):
     """
@@ -439,6 +491,55 @@ class RefundCaptureVoidResourceMixin(ActionsResourceMixin):
         return self._one_item_action(self.api_request.post_200,
                                      resource_id,
                                      'void',
+                                     data)
+
+
+class StartPauseStopActiveResourceMixin(ActionsResourceMixin):
+    """
+    Allows send action requests of start, pause, stop and active
+    """
+    def start(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self._one_item_action(self.api_request.post_200,
+                                     resource_id,
+                                     'start',
+                                     data)
+
+    def pause(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self._one_item_action(self.api_request.post_200,
+                                     resource_id,
+                                     'pause',
+                                     data)
+
+    def stop(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self._one_item_action(self.api_request.post_200,
+                                     resource_id,
+                                     'stop',
+                                     data)
+
+    def active(self, resource_id, data=None):
+        """
+        :param resource_id: id to request
+        :param data: data to send
+        :return: response dictionary
+        """
+        return self._one_item_action(self.api_request.post_200,
+                                     resource_id,
+                                     'active',
                                      data)
 
 

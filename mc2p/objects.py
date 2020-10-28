@@ -1,5 +1,5 @@
 from .base import ReadOnlyObjectItem, CRUDObjectItem, CRObjectItem
-from .mixin import PayURLMixin, RefundCaptureVoidObjectItemMixin, CardShareObjectItemMixin, ChargeObjectItemMixin
+from .mixin import PayURLMixin, RefundCaptureVoidObjectItemMixin, CardShareObjectItemMixin, ChargeObjectItemMixin, StartPauseStopActiveObjectItemMixin
 
 
 class Product(CRUDObjectItem):
@@ -44,7 +44,7 @@ class Transaction(PayURLMixin, CRObjectItem):
     pass
 
 
-class Subscription(PayURLMixin, CRObjectItem):
+class Subscription(StartPauseStopActiveObjectItemMixin, PayURLMixin, CRObjectItem):
     """
     Subscription object
     """

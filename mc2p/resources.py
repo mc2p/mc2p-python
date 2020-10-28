@@ -1,4 +1,4 @@
-from .mixin import RefundCaptureVoidResourceMixin, CardShareResourceMixin, ChargeResourceMixin
+from .mixin import RefundCaptureVoidResourceMixin, CardShareResourceMixin, ChargeResourceMixin, StartPauseStopActiveResourceMixin
 from .base import DetailOnlyResource, ReadOnlyResource, CRResource, CRUDResource
 from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Authorization, Sale, Currency, \
     Gateway, PayData
@@ -52,7 +52,7 @@ class TransactionResource(CRResource):
     OBJECT_ITEM_CLASS = Transaction
 
 
-class SubscriptionResource(CRResource):
+class SubscriptionResource(StartPauseStopActiveResourceMixin, CRResource):
     """
     Subscription resource
     """
