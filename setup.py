@@ -40,6 +40,7 @@ setup(
     license='BSD',
     description='MyChoice2Pay Python Bindings',
     long_description=README,
+    long_description_content_type="text/markdown",
     author='MyChoice2Pay',
     author_email='support@mychoice2pay.com',
     download_url='https://github.com/mc2p/mc2p-python/archive/v0.1.4.tar.gz',
