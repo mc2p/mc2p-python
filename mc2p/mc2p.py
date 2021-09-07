@@ -1,9 +1,9 @@
 from .request import APIRequest
 from .resources import ProductResource, PlanResource, TaxResource, ShippingResource, CouponResource, \
-    TransactionResource, SubscriptionResource, AuthorizationResource, SaleResource, CurrencyResource, \
-    GatewayResource, PayDataResource
-from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Authorization, Sale, Currency, \
-    Gateway, PayData
+    TransactionResource, SubscriptionResource, AuthorizationResource, SaleResource, ClientResource, \
+    WalletResource, TransferResource, CurrencyResource, GatewayResource, PayDataResource
+from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Authorization, Sale, \
+    Client, Wallet, Transfer, Currency, Gateway, PayData
 from .notification import NotificationData
 
 
@@ -48,6 +48,9 @@ class MC2PClient(object):
         self.subscription = SubscriptionResource(self.api_request)
         self.authorization = AuthorizationResource(self.api_request)
         self.sale = SaleResource(self.api_request)
+        self.client = ClientResource(self.api_request)
+        self.wallet = WalletResource(self.api_request)
+        self.transfer = TransferResource(self.api_request)
         self.currency = CurrencyResource(self.api_request)
         self.gateway = GatewayResource(self.api_request)
         self.pay_data = PayDataResource(self.api_request)
@@ -61,6 +64,9 @@ class MC2PClient(object):
         self.Subscription = class_decorator(Subscription, self.subscription)
         self.Authorization = class_decorator(Authorization, self.authorization)
         self.Sale = class_decorator(Sale, self.sale)
+        self.Client = class_decorator(Client, self.client)
+        self.Wallet = class_decorator(Wallet, self.wallet)
+        self.Transfer = class_decorator(Transfer, self.transfer)
         self.Currency = class_decorator(Currency, self.currency)
         self.Gateway = class_decorator(Gateway, self.gateway)
         self.PayData = class_decorator(PayData, self.pay_data)

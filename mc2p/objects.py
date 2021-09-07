@@ -65,6 +65,27 @@ class Sale(RefundCaptureVoidObjectItemMixin, ReadOnlyObjectItem):
     pass
 
 
+class Client(CRObjectItem):
+    """
+    Client object
+    """
+    pass
+
+
+class Wallet(CRObjectItem):
+    """
+    Wallet object
+    """
+    pass
+
+
+class Transfer(CRObjectItem):
+    """
+    Wallet object
+    """
+    pass
+
+
 class Currency(ReadOnlyObjectItem):
     """
     Currency object
