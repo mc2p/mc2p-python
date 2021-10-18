@@ -1,5 +1,5 @@
 from .base import ReadOnlyObjectItem, CRUDObjectItem, CRObjectItem
-from .mixin import PayURLMixin, RefundCaptureVoidObjectItemMixin, CardShareObjectItemMixin, ChargeObjectItemMixin, StartPauseStopActiveObjectItemMixin
+from .mixin import PayURLMixin, RefundCaptureVoidObjectItemMixin, CardShareObjectItemMixin, ChargeObjectItemMixin, StartPauseStopActiveObjectItemMixin, IbanObjectItemMixin
 
 
 class Product(CRUDObjectItem):
@@ -65,7 +65,7 @@ class Sale(RefundCaptureVoidObjectItemMixin, ReadOnlyObjectItem):
     pass
 
 
-class Client(CRObjectItem):
+class Client(IbanObjectItemMixin, CRObjectItem):
     """
     Client object
     """

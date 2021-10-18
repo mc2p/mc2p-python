@@ -1,4 +1,4 @@
-from .mixin import RefundCaptureVoidResourceMixin, CardShareResourceMixin, ChargeResourceMixin, StartPauseStopActiveResourceMixin
+from .mixin import RefundCaptureVoidResourceMixin, CardShareResourceMixin, ChargeResourceMixin, StartPauseStopActiveResourceMixin, IbanResourceMixin
 from .base import DetailOnlyResource, ReadOnlyResource, CRResource, CRUDResource
 from .objects import Product, Plan, Tax, Shipping, Coupon, Transaction, Subscription, Authorization, Sale, Client, Wallet, \
     Transfer, Currency, Gateway, PayData
@@ -76,7 +76,7 @@ class SaleResource(RefundCaptureVoidResourceMixin, ReadOnlyResource):
     OBJECT_ITEM_CLASS = Sale
 
 
-class ClientResource(CRResource):
+class ClientResource(IbanResourceMixin, CRResource):
     """
     Client resource
     """

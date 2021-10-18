@@ -1,5 +1,5 @@
 __title__ = 'MyChoice2Pay Python'
-__version__ = '0.1.5'
+__version__ = '0.1.6'
 __author__ = 'MyChoice2Pay'
 __license__ = 'BSD 2-Clause'
 __copyright__ = 'Copyright 2018 MyChoice2Pay'
